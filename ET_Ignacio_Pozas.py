@@ -44,7 +44,7 @@ def busqueda_precio(precio_min, precio_max, prendas, bodega):
         print (f"{productos[0]} -- {productos[1]}")
 
 def buscar_codigo(codigo_prenda, bodega):
-    for codigo in bodega:
+    for codigo_prenda in bodega:
         if codigo_prenda in bodega:
             return True
         return False
@@ -91,12 +91,12 @@ def valida_unidades(unidades):
     except ValueError:
         print ()
 
-def agregar_prenda(codigo,nombre,categoria,talla,color,material,unisex,int(precio),int(unidades),prendas, bodega):
-    if buscar_codigo(codigo):
+def agregar_prenda(codigo_prenda,nombre,categoria,talla,color,material,unisex,precio,unidades, prendas, bodega):
+    if buscar_codigo(codigo_prenda,bodega):
         print ("El código ya existe")
     else:
-        prendas += {'codigo'} , [nombre,categoria,talla,color,material,unisex]
-        bodega += {'codigo'} , [int(precio),int(unidades)]
+        prendas = {'codigo'} , [nombre,categoria,talla,color,material,unisex]
+        bodega = {'codigo'} , [precio,unidades]
         print ("Prenda agregada")
 
 while True:
@@ -129,8 +129,8 @@ while True:
             except ValueError:
                 print ("Ingrese un valor entero positivo para nuevo precio")
     elif opcion == 4:
-        codigo = input("Ingrese el código de la prenda que desea agregar").upper
-        if not valida_codigo(codigo):
+        codigo_prenda = input("Ingrese el código de la prenda que desea agregar").upper()
+        if valida_codigo(codigo_prenda):
             print ("Ingrese un código válido, no se permite código vacío ni existente")
             continue
         nombre = input("Ingrese el nombre de la prenda que desea agregar")
@@ -163,4 +163,8 @@ while True:
         if not valida_unidades(unidades):
             print ("Las unidades deben ser un número entero mayor o igual que 0")
             continue
-        agregar_prenda(codigo,nombre,categoria,talla,color,material,unisex,int(precio),int(unidades),prendas, bodega)
+        agregar_prenda(codigo_prenda,nombre,categoria,talla,color,material,unisex,int(precio),int(unidades),prendas, bodega)
+
+    elif opcion == 5:
+        prenda_eliminar = input("Ingrese el código de la prenda que desea eliminar")
+        

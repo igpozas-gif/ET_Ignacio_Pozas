@@ -30,10 +30,10 @@ def leer_opcion():
 
 def unidades_categoria(categoria_buscar, prendas, bodega):
     prenda_por_categoria = 0
-    for codigo, datos in prendas:
+    for codigo in prendas:
         if prendas[codigo][1].lower() == categoria_buscar.lower():
             prenda_por_categoria += bodega[codigo][1]
-        print (f"Prendas en bodega para la categoría{categoria_buscar}:{prenda_por_categoria}")
+    print (f"Prendas en bodega para la categoría{categoria_buscar}:{prenda_por_categoria}")
 
 while True:
     opcion = leer_opcion()   

@@ -57,6 +57,48 @@ def actualizar_precio(codigo_prenda, nuevo_precio,bodega):
             return True
     return False
 
+def valida_codigo(codigo):
+    if len(codigo) > 0 and not "" and not buscar_codigo(codigo, bodega):
+        return codigo
+    return False
+
+def valida_vacio(codigo):
+    if len(codigo) > 0 and not "":
+        return True
+    return False
+
+def es_unisex(unisex):
+    if unisex == "s":
+        return True
+    if unisex == "n":
+        return False
+
+def valida_precio(precio):
+    try:
+        int(precio)
+        if precio > 0:
+            return True
+        return False
+    except ValueError:
+        print ()
+
+def valida_unidades(unidades):
+    try:
+        int(unidades)
+        if unidades >= 0:
+            return True
+        return False
+    except ValueError:
+        print ()
+
+def agregar_prenda(codigo,nombre,categoria,talla,color,material,unisex,int(precio),int(unidades),prendas, bodega):
+    if buscar_codigo(codigo):
+        print ("El código ya existe")
+    else:
+        prendas += {'codigo'} , [nombre,categoria,talla,color,material,unisex]
+        bodega += {'codigo'} , [int(precio),int(unidades)]
+        print ("Prenda agregada")
+
 while True:
     opcion = leer_opcion()   
     if opcion == 1:
@@ -87,4 +129,38 @@ while True:
             except ValueError:
                 print ("Ingrese un valor entero positivo para nuevo precio")
     elif opcion == 4:
-        print ("asd")
+        codigo = input("Ingrese el código de la prenda que desea agregar").upper
+        if not valida_codigo(codigo):
+            print ("Ingrese un código válido, no se permite código vacío ni existente")
+            continue
+        nombre = input("Ingrese el nombre de la prenda que desea agregar")
+        if not valida_vacio(nombre):
+            print ("No se permite un nombre vacío ni solo espacios en blanco")
+            continue
+        categoria = input("Ingrese la cagegoría de la prenda que desea agregar")
+        if not valida_vacio(categoria):
+            print ("No se permite una categoría vacía ni solo espacios en blanco")
+            continue
+        talla = input("Ingrese la talla de la prenda que desea agregar")
+        if not valida_vacio(talla):
+            print ("No se permiten tallas vacías ni solo espacios en blanco")
+            continue
+        color = input("Ingrese el color de la prenda que desea agregar")
+        if not valida_vacio(color):
+            print ("No se permite un color vacío ni solo espacios en blanco")
+            continue
+        material = input ("Ingrese el material del que está hecha la prenda que desea agregar")
+        if not valida_vacio(material):
+            print ("No se permiten materiales vacíos ni solo espacios en blanco")
+            continue
+        unisex = input("¿Su prenda es unisex?(s/n)")
+        unisex = es_unisex(unisex)
+        precio = int(input("Ingrese el precio de su prenda a agregar"))
+        if not valida_precio(precio):
+            print ("El precio debe ser un número entero mayor que 0")
+            continue
+        unidades = int(input("Ingrese la cantidad de unidades de la prenda que desea ingresar a bodega"))
+        if not valida_unidades(unidades):
+            print ("Las unidades deben ser un número entero mayor o igual que 0")
+            continue
+        agregar_prenda(codigo,nombre,categoria,talla,color,material,unisex,int(precio),int(unidades),prendas, bodega)

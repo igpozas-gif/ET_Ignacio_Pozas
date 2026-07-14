@@ -35,8 +35,24 @@ def unidades_categoria(categoria_buscar, prendas, bodega):
             prenda_por_categoria += bodega[codigo][1]
     print (f"Prendas en bodega para la categoría{categoria_buscar}:{prenda_por_categoria}")
 
+def busqueda_precio(precio_min, precio_max, prendas, bodega):
+    productos_en_rango = []
+    for codigo,datos in prendas.items():
+        if bodega [codigo][0] > precio_min and bodega[codigo][0] < precio_max and bodega[codigo][1] > 0:
+            productos_en_rango.append(([prendas[codigo][1], codigo]))
+    for productos in productos_en_rango:
+        print (f"{productos[0]} -- {productos[1]}")
+
 while True:
     opcion = leer_opcion()   
     if opcion == 1:
         categoria_buscar = input ("Ingrese una categoría de prenda para buscar")
         unidades_categoria (categoria_buscar, prendas, bodega)
+    elif opcion == 2:
+        try:
+            precio_min = int(input("Ingrese el precio mínimo para buscar"))
+            precio_max =int(input("Ingrese el precio máximo para buscar"))
+            if precio_min >= 0 and precio_max >= 0 and precio_min < precio_max:
+                busqueda_precio(precio_min, precio_max, prendas, bodega)
+        except ValueError:
+            print ("Debe ingresar valores enteros")

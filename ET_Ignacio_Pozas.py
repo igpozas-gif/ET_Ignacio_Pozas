@@ -43,6 +43,20 @@ def busqueda_precio(precio_min, precio_max, prendas, bodega):
     for productos in productos_en_rango:
         print (f"{productos[0]} -- {productos[1]}")
 
+def buscar_codigo(codigo_prenda, bodega):
+    for codigo in bodega:
+        if codigo_prenda in bodega:
+            return True
+        return False
+
+def actualizar_precio(codigo_prenda, nuevo_precio,bodega):
+    if buscar_codigo(codigo_prenda, bodega):
+        for codigo in bodega:
+            if codigo.upper() == codigo_prenda.upper():
+                bodega[codigo][0] = nuevo_precio
+            return True
+    return False
+
 while True:
     opcion = leer_opcion()   
     if opcion == 1:
@@ -56,3 +70,21 @@ while True:
                 busqueda_precio(precio_min, precio_max, prendas, bodega)
         except ValueError:
             print ("Debe ingresar valores enteros")
+    elif opcion == 3:
+        while True:
+            try:
+                codigo_prenda = input("Ingrese el código de la prenda a la que desea cambiar el precio").upper()
+                nuevo_precio = int(input("Ingrese el precio nuevo de la prenda"))
+                if actualizar_precio(codigo_prenda, nuevo_precio, bodega):
+                    print ("Precio Actualizado con éxito")
+                else:
+                    print ("Código no existe")
+                reiteracion = input("¿Desea seguir actualizando precios? (s/n)")
+                if reiteracion != "s":
+                    break
+                else:
+                    continue
+            except ValueError:
+                print ("Ingrese un valor entero positivo para nuevo precio")
+    elif opcion == 4:
+        print ("asd")
